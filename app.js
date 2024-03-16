@@ -10,6 +10,9 @@ app.use(express.static("public"))
 app.get('/', (req, res) => {
     res.render('index'); // index.ejs dosyasını render et
 });
+app.get('/a', (req, res) => {
+    res.render('about'); // index.ejs dosyasını render et
+});
 
 const port = 3000;
 app.listen(port, () => {
