@@ -1,0 +1,30 @@
+{
+  "name": "galleryhub",
+  "version": "1.0.0",
+  "description": "galery photo",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OmerAygunn/GalleryHub.git"
+  },
+  "keywords": [
+    "photo",
+    "galery"
+  ],
+  "author": "Ömer Aygün",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OmerAygunn/GalleryHub/issues"
+  },
+  "homepage": "https://github.com/OmerAygunn/GalleryHub#readme",
+  "dependencies": {
+    "ejs": "^3.1.9",
+    "express": "^4.18.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
