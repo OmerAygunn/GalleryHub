@@ -10,6 +10,10 @@ app.use(express.static("public"))
 
 app.use('/',pageRoute)
 
+app.get('/services',(req,res)=>{
+    res.render('services')
+})
+
 
 const port = 3000;
 app.listen(port, () => {
