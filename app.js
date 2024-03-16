@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const pageRoute = require('./routes/pageRoutes')
 
 // Template Engine with ejs 
 app.set('view engine', 'ejs');
@@ -7,12 +8,8 @@ app.set('view engine', 'ejs');
 // Middlewares
 app.use(express.static("public"))
 
-app.get('/', (req, res) => {
-    res.render('index'); // index.ejs dosyasını render et
-});
-app.get('/a', (req, res) => {
-    res.render('about'); // index.ejs dosyasını render et
-});
+app.use('/',pageRoute)
+
 
 const port = 3000;
 app.listen(port, () => {
