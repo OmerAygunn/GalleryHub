@@ -17,7 +17,6 @@ const photoSchema = new Schema({
         type:Date,
         default:Date.now()
     },
-    image:Buffer
 })
 
 const Photo = mongoose.model('Photo',photoSchema)
