@@ -1,8 +1,14 @@
 exports.getIndexPage = (req,res) => {
-    res.render('index')
+    res.render('index',{
+        pageName:'index'
+
+    })
 }
 
 exports.getAboutPage = (req,res)=> {
-    res.render('about')
+    res.render('about',{
+        pageName:'about'
+
+    })
 }
 
