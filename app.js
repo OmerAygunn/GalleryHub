@@ -2,8 +2,7 @@ const express = require('express');
 const app = express();
 const pageRoute = require('./routes/pageRoutes')
 const photoRoutes = require('./routes/photoRoute');
-const Photo = require('./models/photoModels');
-
+const userRoute = require('./routes/userRoute')
 // Template Engine with ejs 
 app.set('view engine', 'ejs');
 
@@ -14,6 +13,7 @@ app.use(express.json())
 
 app.use('/',pageRoute)
 app.use('/photos',photoRoutes)
+app.use('/users',userRoute)
 
 const port = 3000;
 app.listen(port, () => {
