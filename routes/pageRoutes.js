@@ -5,7 +5,9 @@ const router = express.Router()
 
 router.route('/').get(pageController.getIndexPage)
 router.route('/about').get(pageController.getAboutPage)
-router.route('/register').get(pageController.getServicespage)
+router.route('/register').get(pageController.getRegisterspage)
+router.route('/login').get(pageController.getLoginPage)
+
 
 
 

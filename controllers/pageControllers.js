@@ -11,8 +11,14 @@ exports.getAboutPage = (req,res)=> {
 
     })
 }
+exports.getLoginPage = (req,res)=> {
+    res.render('login',{
+        pageName:'login'
 
-exports.getServicespage = (req,res)=> {
+    })
+}
+
+exports.getRegisterspage = (req,res)=> {
     res.render('register',{
         pageName:'register'
 
