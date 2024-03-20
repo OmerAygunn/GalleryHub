@@ -4,15 +4,18 @@ const jwt = require('jsonwebtoken');
 
 exports.authenticateToken = async(req, res, next) => {
     try {
-        const token = req.headers["authorization"] && req.headers["authorization"].split(" ")[1];
-        if (!token) {
-            return res.status(401).json({
-                status: 'fail',
-                error: "Token not available"
-            });
+        const token = req.cookies.jsonwebtoken
+        if(token){
+            jwt.verify(token,process.env.Json_Secret_key,(err)=>{
+                if(err){
+                    res.redirect('/login')
+                }
+                next()
+            })
         }
-        req.user = await User.findById(jwt.verify(token, "gallery_hub").userId);
-        next();
+        else{
+            res.redirect('/login')
+        }
     } catch (err) {
         return res.status(401).json({
             status: 'fail',

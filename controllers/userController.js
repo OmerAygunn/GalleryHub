@@ -3,8 +3,6 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 
-
-
 exports.createUser = async(req,res)=>{
     try{
         const user = await User.create(req.body)
@@ -27,10 +25,12 @@ exports.loginUser = async(req,res) => {
     if(user){
         const same = bcrypt.compare(password,user.password)
         if(same){
-            res.status(200).json({
-                user,
-                token:createToken(user._id)
+            const token =  createToken(user._id)
+            res.cookie("jsonwebtoken",token,{    // Oluşturulan token cookie ye kaydedildi senin verdiğin isimle
+                httpOnly:true,
+                maxAge:1000*60*60*24
             })
+            res.redirect('/users/dashboard')
         }
         else{
             return res.staü(401).json({
@@ -50,8 +50,15 @@ exports.loginUser = async(req,res) => {
 const createToken = (userId) => {
     return jwt.sign(
         {userId},
-        "gallery_hub",
+        process.env.Json_Secret_key,
         {expiresIn:'1d'}
         )
+}  // Token yapısı initalize edildi sign metodu ile
+
+exports.getDashboard = (req,res)=> {
+    res.render('dashboard',{
+        pageName:'dashboard'
+
+    })
 }
 
