@@ -1,5 +1,8 @@
 const User = require("../models/userModels")
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
+
 
 
 exports.createUser = async(req,res)=>{
@@ -24,7 +27,10 @@ exports.loginUser = async(req,res) => {
     if(user){
         const same = bcrypt.compare(password,user.password)
         if(same){
-            res.status(200).send("You are logged in")
+            res.status(200).json({
+                user,
+                token:createToken(user._id)
+            })
         }
         else{
             return res.staü(401).json({
@@ -34,9 +40,18 @@ exports.loginUser = async(req,res) => {
         }
     }
     else{
-        return res.staü(401).json({
+        return res.status(401).json({
             status:'fail',
             error:"There is no such user"
         })
     }
 }
+
+const createToken = (userId) => {
+    return jwt.sign(
+        {userId},
+        "gallery_hub",
+        {expiresIn:'1d'}
+        )
+}
+

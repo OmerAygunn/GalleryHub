@@ -1,4 +1,7 @@
+const User = require('../models/userModels')
+
 exports.getIndexPage = (req,res) => {
+    console.log(req.user);
     res.render('index',{
         pageName:'index'
 
@@ -11,9 +14,12 @@ exports.getAboutPage = (req,res)=> {
 
     })
 }
-exports.getLoginPage = (req,res)=> {
+exports.getLoginPage = async (req,res)=> {
+    const user = await User.find()
     res.render('login',{
-        pageName:'login'
+        pageName:'login',
+        user
+
 
     })
 }
