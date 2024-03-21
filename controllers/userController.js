@@ -1,6 +1,7 @@
 const User = require("../models/userModels")
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const Photo = require("../models/photoModels");
 
 
 exports.createUser = async(req,res)=>{
@@ -55,9 +56,11 @@ const createToken = (userId) => {
         )
 }  // Token yapısı initalize edildi sign metodu ile
 
-exports.getDashboard = (req,res)=> {
+exports.getDashboard = async(req,res)=> {
+    const photos = await Photo.find({user:res.locals.user._id})
     res.render('dashboard',{
-        pageName:'dashboard'
+        pageName:'dashboard',
+        photos
 
     })
 }

@@ -21,7 +21,7 @@ app.use(express.json())
 app.use(cookieParser())
 
 
-app.get('*',userMiddlewares.checkUser)
+app.use('*',userMiddlewares.checkUser)
 app.use('/',pageRoute)
 app.use('/photos',photoRoutes)
 app.use('/users',userRoute)

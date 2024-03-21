@@ -8,7 +8,6 @@ const UserSchema = new Schema({
     userName:{
         type:String,
         required:true,
-        unique:true
     },
     email:{
         type:String,
@@ -18,13 +17,7 @@ const UserSchema = new Schema({
     password:{
         type:String,
         required:true,
-    },
-    photos:[
-        {
-            type:mongoose.Schema.Types.ObjectId,
-            ref:'Photo'
-        }
-    ]
+    }
     },
     {
         timestamps:true

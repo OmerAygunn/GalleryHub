@@ -2,8 +2,12 @@ const Photo = require('../models/photoModels')
 
 exports.createPhoto = async (req, res) => {
     try {
-        const photo = await Photo.create(req.body);
-        res.status(200).redirect('/')
+        await Photo.create({
+            name:req.body.name,
+            description:req.body.description,
+            user:res.locals.user._id
+        });
+        res.status(200).redirect('/users/dashboard')
     } catch (err) {
         console.error(err);
         res.status(500).render('error', {
