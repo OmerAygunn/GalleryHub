@@ -30,5 +30,11 @@ exports.getRegisterspage = (req,res)=> {
 
     })
 }
+exports.getLogoutPage =  (req, res) => {
+    res.cookie('jsonwebtoken','',{
+        maxAge:1
+    })
+    res.redirect('/'); 
+};
 
 

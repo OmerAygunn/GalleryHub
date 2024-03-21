@@ -25,10 +25,10 @@ exports.loginUser = async(req,res) => {
     if(user){
         const same = bcrypt.compare(password,user.password)
         if(same){
-            const token =  createToken(user._id)
+            const token =  createToken(user._id)   // token calling function ile functionu çağırıyoruz 
             res.cookie("jsonwebtoken",token,{    // Oluşturulan token cookie ye kaydedildi senin verdiğin isimle
                 httpOnly:true,
-                maxAge:1000*60*60*24
+                maxAge:1000*60*60*24    // 1day
             })
             res.redirect('/users/dashboard')
         }

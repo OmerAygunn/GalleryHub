@@ -4,6 +4,7 @@ const pageRoute = require('./routes/pageRoutes')
 const photoRoutes = require('./routes/photoRoute');
 const userRoute = require('./routes/userRoute')
 const cookieParser = require('cookie-parser')
+const userMiddlewares = require('./middlewares/userMiddlewares')
 
 const dotenv = require('dotenv')
 // Template Engine with ejs 
@@ -20,7 +21,7 @@ app.use(express.json())
 app.use(cookieParser())
 
 
-
+app.get('*',userMiddlewares.checkUser)
 app.use('/',pageRoute)
 app.use('/photos',photoRoutes)
 app.use('/users',userRoute)
