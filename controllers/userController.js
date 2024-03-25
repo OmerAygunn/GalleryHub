@@ -26,7 +26,7 @@ exports.loginUser = async(req,res) => {
     if(user){
         const same = bcrypt.compare(password,user.password)
         if(same){
-            const token =  createToken(user._id)   // token calling function ile functionu çağırıyoruz 
+            const token =  createToken(user._id)   // token calling function ile functionu çağırıyoruz token oluşturma işlemini aktif ediyoruz
             res.cookie("jsonwebtoken",token,{    // Oluşturulan token cookie ye kaydedildi senin verdiğin isimle
                 httpOnly:true,
                 maxAge:1000*60*60*24    // 1day
@@ -54,7 +54,7 @@ const createToken = (userId) => {
         process.env.Json_Secret_key,
         {expiresIn:'1d'}
         )
-}  // Token yapısı initalize edildi sign metodu ile
+}  // Token yapısı initalize edildi SIGN metodu ile
 
 exports.getDashboard = async(req,res)=> {
     const photos = await Photo.find({user:res.locals.user._id})
@@ -64,4 +64,29 @@ exports.getDashboard = async(req,res)=> {
 
     })
 }
-
+exports.getAllUser = async (req, res) => {
+    try {
+        const users = await User.find({_id:{$ne: res.locals.user._id }});
+        res.render('users', {
+            pageName: 'users',
+            users
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('An error occurred');
+    }
+};
+exports.getUser = async(req,res) => {
+    try{
+        const user = await User.findOne({slug:req.params.slug})
+        const photos = await Photo.find({ user: res.locals.user._id });
+        res.render('user',{
+            user,
+            photos,
+            pageName:'user'
+        })
+    }catch (error) {
+        console.error(error);
+        res.status(500).send('An error occurred');
+    }
+}

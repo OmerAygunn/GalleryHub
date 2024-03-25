@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt');
+const slugify  = require('slugify');
 
 
 const Schema = mongoose.Schema;
@@ -17,11 +18,24 @@ const UserSchema = new Schema({
     password:{
         type:String,
         required:true,
+    },
+    slug:{
+        type:String,
+        unique:true
     }
     },
     {
         timestamps:true
     })
+
+    UserSchema.pre('validate',function(next){
+        this.slug = slugify(this.userName,{
+            lower:true,
+            strict:true
+        })
+        next();
+    })
+    
 
     UserSchema.pre('save', async function(next) {
         const user = this;    
@@ -34,6 +48,7 @@ const UserSchema = new Schema({
             return next(error);
         }
     });
+    
     
 const User = mongoose.model('User',UserSchema)
 

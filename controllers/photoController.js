@@ -33,7 +33,8 @@ exports.createPhoto = async (req, res) => {
 
 exports.getAllPhotos = async (req, res) => {
     try {
-        const photos = await Photo.find();
+
+        const photos =  res.locals.user ? await Photo.find({user: {$ne:res.locals.user._id}}):  await Photo.find();
         res.status(200).render('photos', { 
             photos,
             pageName:'photos'
@@ -50,7 +51,6 @@ exports.getAllPhotos = async (req, res) => {
 exports.getPhoto = async (req,res) => {
     try{
         const photo = await Photo.findOne({ slug: req.params.slug }).populate('user');
-        console.log(photo.slug);
         res.render('photo', {
             photo,
             pageName: 'photo'

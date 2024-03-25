@@ -1,7 +1,6 @@
 const User = require('../models/userModels')
 
 exports.getIndexPage = (req,res) => {
-    console.log(req.user);
     res.render('index',{
         pageName:'index'
 
